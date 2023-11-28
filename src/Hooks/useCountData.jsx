@@ -7,7 +7,6 @@ const useCountData = () => {
     const [parcels,setParcels] = useState([])
     axiosPublic.get('/countusers')
         .then(res => {
-            console.log(res)
             if (!count) {
                 setCount(res.data)
             }
@@ -15,7 +14,6 @@ const useCountData = () => {
     
     axiosPublic.get('/parcels')
     .then(res=>{
-        console.log(res)
         if (!count) {
             setParcels(res.data)
         }

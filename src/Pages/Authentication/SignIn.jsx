@@ -16,6 +16,7 @@ import useAuth from '../../Hooks/useAuth';
 import { Link } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import useAxiosPublic from '../../Axios/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -33,8 +34,11 @@ export default function SignIn() {
       .then(res => {
         if (res?.user?.email) {
           // updateUserProfile(data.name, data.photo)
-          console.log(res)
-          navigate('/')
+          Swal.fire({
+            icon: "success",
+            title: "Sign Up Successfully",
+          });
+          navigate(location?.state ? location.state : '/');
         }
       })
       .catch(err => console.log(err))
@@ -54,9 +58,12 @@ export default function SignIn() {
           const role = 'user'
           const userData = {image,userName,email,role}
           axiosPublic.post('/users',userData)
-          .then(res=>{
-            console.log(res.data)
-            navigate('/')
+          .then(()=>{
+            Swal.fire({
+              icon: "success",
+              title: "Sign Up Successfully",
+            });
+            navigate(location?.state ? location.state : '/');
           })
         }
       })

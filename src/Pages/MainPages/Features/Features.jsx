@@ -1,4 +1,3 @@
-import './Features.css'
 import img1 from '../../../assets/calender.png'
 import img2 from '../../../assets/calculate.png'
 import img3 from '../../../assets/gift.png'

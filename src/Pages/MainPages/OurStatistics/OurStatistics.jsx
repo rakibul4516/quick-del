@@ -5,9 +5,7 @@ import useCountData from "../../../Hooks/useCountData";
 
 const OurStatistics = () => {
     const {count,parcels} = useCountData()
-    console.log(parcels)
     const totalParcel = parcels?.length
-    console.log(totalParcel)
     const Delivered = parcels?.filter((parcels)=>parcels?.status === 'Delivered')
     const totalDelivered = Delivered?.length
     
@@ -19,7 +17,7 @@ const OurStatistics = () => {
                         <MdBookmarkAdded className="text-4xl font-semibold "/>
                     </div>
                     <div className="flex items-center justify-between flex-1 p-3">
-                        <p className="text-4xl font-semibold text-[#dd9042]">
+                        <div className="text-4xl font-semibold text-[#dd9042]">
                             <CountUp
                                 start={1}
                                 end={totalParcel}
@@ -33,7 +31,7 @@ const OurStatistics = () => {
                                 )}
                             </CountUp>
 
-                        </p>
+                        </div>
                         <p className="text-lg text-[#dd9042]">Booked</p>
                     </div>
                 </div>
@@ -42,7 +40,7 @@ const OurStatistics = () => {
                         <MdDeliveryDining className="text-4xl font-semibold"/>
                     </div>
                     <div className="flex items-center justify-between flex-1 p-3">
-                        <p className="text-4xl font-semibold text-[#dd9042]">
+                        <div className="text-4xl font-semibold text-[#dd9042]">
                         <CountUp
                                 start={1}
                                 end={totalDelivered}
@@ -55,7 +53,7 @@ const OurStatistics = () => {
                                     </div>
                                 )}
                             </CountUp>
-                        </p>
+                        </div>
                         <p className="text-lg text-[#d4a373]">Delivered</p>
                     </div>
                 </div>
@@ -64,7 +62,7 @@ const OurStatistics = () => {
                         <FaUsers className="text-4xl font-semibold"/>
                     </div>
                     <div className="flex items-center justify-between flex-1 p-3">
-                        <p className="text-4xl font-semibold text-[#dd9042]">
+                        <div className="text-4xl font-semibold text-[#dd9042]">
                             
                         <CountUp
                                 start={1}
@@ -78,7 +76,7 @@ const OurStatistics = () => {
                                     </div>
                                 )}
                             </CountUp>
-                        </p>
+                        </div>
                         <p className="text-lg text-[#dd9042]">Users</p>
                     </div>
                 </div>

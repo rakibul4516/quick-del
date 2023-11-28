@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <AuthProvider>
-        <RouterProvider router={Routes} />
+          <RouterProvider router={Routes} />
       </AuthProvider>
     </React.StrictMode>
   </QueryClientProvider>

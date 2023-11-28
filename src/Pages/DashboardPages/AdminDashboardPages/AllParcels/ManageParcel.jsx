@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const ManageParcel = ({handleFormData}) => {
     const {data} = useAllusers('deliverymen')
-    console.log(data)
     return (
         <form onSubmit={handleFormData} className="w-full ">
             <fieldset className="lg:p-6 rounded-md shadow-sm dark:bg-gray-900 lg:w-10/12 w-11/12 mx-auto">

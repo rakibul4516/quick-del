@@ -17,6 +17,7 @@ import { Input, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 import useAxiosPublic from '../../Axios/useAxiosPublic';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -57,9 +58,12 @@ export default function SignUp() {
                         if (res?.user?.email) {
                             console.log(res)
                             updateUserProfile(userName, image)
-                                .then(res => {
-                                    console.log(res)
-                                    navigate('/')
+                                .then(() => {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Sign Up Successfully",
+                                      });
+                                    navigate(location?.state ? location.state : '/');
                                 })
                                 .catch(err => {
                                     console.log(err)
