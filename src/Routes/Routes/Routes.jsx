@@ -62,7 +62,8 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'allusers',
-                element: <PrivateRoute><AllUsers/></PrivateRoute>
+                element: <PrivateRoute><AllUsers/></PrivateRoute>,
+                // loader: () =>fetch('http://localhost:5000/api/v1/countusers')
             },
             {
                 path:'allparcels',

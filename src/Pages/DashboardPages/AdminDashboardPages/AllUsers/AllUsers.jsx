@@ -1,46 +1,82 @@
 import { useState } from "react";
 import useAxiosPublic from "../../../../Axios/useAxiosPublic";
-import useAllParcels from "../../../../Hooks/useAllParcels";
 import useAllusers from "../../../../Hooks/useAllusers";
 import { toast } from "react-toastify";
+// import { useLoaderData } from "react-router-dom";
 
 const AllUsers = () => {
     const usersdata = useAllusers('user')
-    const [users,setusers] = useState(usersdata?.data)
-    const {data} = useAllParcels()
+    const [users, setusers] = useState(usersdata?.data)
     const axiosPublic = useAxiosPublic()
-    console.log(usersdata)
-    const handleMakeDeliverymen = (id) =>{
-        axiosPublic.patch(`/user/${id}`, { setrole: 'deliverymen' })
-        .then(res => {
-            console.log(res.data);
-            if(res.data.modifiedCount == 1){
-                const remainingData = users?.filter(items=>items?._id !==id);
-                setusers(remainingData)
-                return toast("Deliverymen Added!")
+    const [currentPage, setCurrentPage] = useState(0)
+    // const { count } = useLoaderData()
 
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+
+    const handleMakeDeliverymen = (id) => {
+        axiosPublic.patch(`/user/${id}`, { setrole: 'deliverymen' })
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount == 1) {
+                    const remainingData = users?.filter(items => items?._id !== id);
+                    setusers(remainingData)
+                    return toast("Deliverymen Added!")
+
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
-    const handleMakeAdmin = (id)=>{
+    const handleMakeAdmin = (id) => {
         console.log(id)
         axiosPublic.patch(`/user/${id}`, { setrole: 'admin' })
-        .then(res => {
-            if(res.data.modifiedCount == 1){
-                const remainingData = users?.filter(items=>items?._id !==id);
-                setusers(remainingData)
-                return toast("Admin added!")
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            .then(res => {
+                if (res.data.modifiedCount == 1) {
+                    const remainingData = users?.filter(items => items?._id !== id);
+                    setusers(remainingData)
+                    return toast("Admin added!")
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
-    console.log(data)
+
+
+
+    // //Use pagination 
+    // console.log(count)
+    // const limit = 5;
+    // const totalPages = Math.ceil(parseInt(count) / limit)
+    // const pages = [...Array(totalPages).keys()];
+    // console.log(pages)
+
+
+    // //handle next page 
+    // const handleNextPage = () => {
+    //     if (currentPage < pages.length - 1) {
+    //         setCurrentPage(currentPage + 1)
+    //     }
+    // }
+    // // handle next page 
+    // const handlePrevPage = () => {
+    //     if (currentPage > 0) {
+    //         setCurrentPage(currentPage - 1)
+    //     }
+    // }
+
+
+    // //Fetch data 
+    // useEffect(() => {
+    //     // axiosPublic.get(`/allfoods?search=${search}&category=${category}&page=${currentPage}&limit=${limit}`)
+    //     axiosPublic.get(`/allusers?page=${currentPage}&limit=${limit}`)
+    //         .then((res) => {
+    //             setFoods(res.data);
+    //         })
+    // }, [currentPage, search, axios, category])
+
+
     return (
         <div className=" p-2 mx-auto sm:p-4 dark:text-gray-100">
             <h2 className="mb-4 text-2xl font-semibold">All Users</h2>
@@ -67,7 +103,7 @@ const AllUsers = () => {
                     <tbody>
                         {
                             users?.map(user => (
-                                <tr key={user._id} className="border-b border-opacity-20 bg-[#fefae0] dark:border-gray-700 dark:bg-gray-900">     
+                                <tr key={user._id} className="border-b border-opacity-20 bg-[#fefae0] dark:border-gray-700 dark:bg-gray-900">
                                     <td className="p-3">
                                         <span className=" py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
                                             <span>{user?.userName}</span>
@@ -75,12 +111,14 @@ const AllUsers = () => {
                                     </td>
                                     <td className="p-3">
                                         <span className=" py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
-                                            <span>{user?.number?user?.number:'Not avilable'}</span>
+                                            <span>{user?.number ? user?.number : 'Not avilable'}</span>
                                         </span>
                                     </td>
                                     <td className="p-3">
                                         <span className=" py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
-                                            <span>{user.status}</span>
+
+                                            <span></span>
+
                                         </span>
                                     </td>
                                     <td className="p-3">
@@ -101,6 +139,28 @@ const AllUsers = () => {
                             ))
                         }
                     </tbody>
+                    {/* <div className="flex justify-center items-center pb-5">
+                        <button onClick={handlePrevPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                        {
+                            pages?.map(page => (
+                                <button
+                                    onClick={() => setCurrentPage(page)}
+                                    key={page}
+                                    className={`${currentPage === page ? 'selected' : null} px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>
+                                    {page}
+                                </button>
+                            ))
+                        }
+                        <button onClick={handleNextPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                    </div> */}
                 </table>
             </div>
         </div>

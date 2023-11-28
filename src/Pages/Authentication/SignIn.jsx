@@ -36,7 +36,7 @@ export default function SignIn() {
           // updateUserProfile(data.name, data.photo)
           Swal.fire({
             icon: "success",
-            title: "Sign Up Successfully",
+            title: "Sign In Successfully",
           });
           navigate(location?.state ? location.state : '/');
         }

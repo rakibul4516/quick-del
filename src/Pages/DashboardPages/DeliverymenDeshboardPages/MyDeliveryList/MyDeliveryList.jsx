@@ -12,6 +12,7 @@ const MyDeliveryList = () => {
     const [isOpen, setIsOpen] = useState(false);
     const axiosPublic = useAxiosPublic()
     const { parcels, totalDelivery, id } = useDeliveryData()
+    const parcelData = parcels?.filter((item) =>item?.status =='On The Way')
     //allparcels = {deliveryAddress,deliveryDate,email,latitude,longitude,parcelType,parcelWeight,phoneNumber,price,receiverName,receiverNumber,senderName,_id}
     //model toggle bar
     const toggleModal = () => {
@@ -20,7 +21,6 @@ const MyDeliveryList = () => {
 
     //Confirm delivery 
     const handleDeliver = (items) => {
-        console.log(items);
         const status = 'Delivered';
 
         const { deliveryAddress, deliveryDate, email, latitude, longitude, parcelType, parcelWeight, phoneNumber, price, receiverName, receiverNumber, senderName, deliverymen, assignDate, _id } = items || {};
@@ -40,6 +40,28 @@ const MyDeliveryList = () => {
                                 refetch();
                                 return toast("Delivered Succesfully!")
                             })
+                    }
+                })
+        }
+
+    }
+
+
+    const handleCancel = (items) => {
+        console.log(items);
+        const status = 'Canceled';
+
+        const { deliveryAddress, deliveryDate, email, latitude, longitude, parcelType, parcelWeight, phoneNumber, price, receiverName, receiverNumber, senderName, deliverymen, assignDate, _id } = items || {};
+
+        const parcelData = { deliveryAddress, deliveryDate, email, latitude, longitude, parcelType, parcelWeight, phoneNumber, price, receiverName, receiverNumber, senderName, deliverymen, assignDate, status };
+
+
+        if (_id) {
+            axiosPublic.put(`/parcels/${_id}`, parcelData)
+                .then(res => {
+                    console.log(res.data);
+                    if (res?.data?.modifiedCount === 1) {
+                                return toast("Canceled Succesfully!")
                     }
                 })
         }
@@ -95,7 +117,7 @@ const MyDeliveryList = () => {
                     </thead>
                     <tbody>
                         {
-                            parcels?.map(parcel => (
+                            parcelData?.map(parcel => (
                                 <tr key={parcel._id} className="border-b border-opacity-20 bg-[#fefae0] dark:border-gray-700 dark:bg-gray-900">
                                     <td className="p-3">
                                         <p>{parcel.senderName}</p>
@@ -116,12 +138,10 @@ const MyDeliveryList = () => {
                                         <p className="dark:text-gray-400">{parcel?.receiverNumber}</p>
                                     </td>
                                     <td className="p-3">
-                                        <span className=" py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
-                                            <span>{parcel.deliveryAddress}</span>
-                                        </span>
+                                        <p className="dark:text-gray-400">{parcel.deliveryAddress}</p>
                                     </td>
                                     <td className="p-3">
-                                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        <button onClick={() => handleCancel(parcel)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                         >Cancel</button>
                                     </td>
                                     <td className="p-3">
@@ -134,7 +154,6 @@ const MyDeliveryList = () => {
                                                 <button
                                                     onClick={() => {
                                                         toggleModal();
-                                                        handleDataUpdate(parcel);
                                                     }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
                                                     Location
