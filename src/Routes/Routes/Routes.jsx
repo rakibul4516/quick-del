@@ -53,8 +53,9 @@ const Routes = createBrowserRouter([
                 loader:({params}) =>fetch(`http://localhost:5000/api/v1/parcels/${params.id}`)
             },
             {
-                path:'payment',
-                element: <PrivateRoute><Payment/></PrivateRoute>
+                path:'payment/:id',
+                element: <PrivateRoute><Payment/></PrivateRoute>,
+                loader:({params}) =>fetch(`http://localhost:5000/api/v1/parcels/${params.id}`)
             },
             {
                 path:'myprofile',

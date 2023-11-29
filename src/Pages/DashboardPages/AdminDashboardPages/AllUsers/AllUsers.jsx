@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../../Axios/useAxiosPublic";
-import useAllusers from "../../../../Hooks/useAllusers";
+// import useAllusers from "../../../../Hooks/useAllusers";
 import { toast } from "react-toastify";
+import useCountData from "../../../../Hooks/useCountData";
 // import { useLoaderData } from "react-router-dom";
 
 const AllUsers = () => {
-    const usersdata = useAllusers('user')
-    const [users, setusers] = useState(usersdata?.data)
+    const [users, setusers] = useState([])
     const axiosPublic = useAxiosPublic()
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
     // const { count } = useLoaderData()
+    const { count } = useCountData()
+    console.log(count)
 
 
     const handleMakeDeliverymen = (id) => {
@@ -46,35 +48,37 @@ const AllUsers = () => {
 
 
     // //Use pagination 
-    // console.log(count)
-    // const limit = 5;
-    // const totalPages = Math.ceil(parseInt(count) / limit)
-    // const pages = [...Array(totalPages).keys()];
-    // console.log(pages)
+    console.log(typeof (count?.count))
+    const countData = count?.count
+    const limit = 5;
+    const totalPages = countData ? Math.ceil(parseInt(countData) / limit) : ''
+    const pages = [...Array(totalPages).keys()];
+    console.log(pages)
 
 
-    // //handle next page 
-    // const handleNextPage = () => {
-    //     if (currentPage < pages.length - 1) {
-    //         setCurrentPage(currentPage + 1)
-    //     }
-    // }
-    // // handle next page 
-    // const handlePrevPage = () => {
-    //     if (currentPage > 0) {
-    //         setCurrentPage(currentPage - 1)
-    //     }
-    // }
+    //handle next page 
+    const handleNextPage = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+    // handle next page 
+    const handlePrevPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
 
 
     // //Fetch data 
-    // useEffect(() => {
-    //     // axiosPublic.get(`/allfoods?search=${search}&category=${category}&page=${currentPage}&limit=${limit}`)
-    //     axiosPublic.get(`/allusers?page=${currentPage}&limit=${limit}`)
-    //         .then((res) => {
-    //             setFoods(res.data);
-    //         })
-    // }, [currentPage, search, axios, category])
+    useEffect(() => {
+        // axiosPublic.get(`/allfoods?search=${search}&category=${category}&page=${currentPage}&limit=${limit}`)
+        axiosPublic.get(`/allusers?role='user'&page=${currentPage}&limit=${limit}`)
+            .then((res) => {
+                console.log(res.data)
+                setusers(res.data);
+            })
+    }, [currentPage, axiosPublic])
 
 
     return (
@@ -139,29 +143,30 @@ const AllUsers = () => {
                             ))
                         }
                     </tbody>
-                    {/* <div className="flex justify-center items-center pb-5">
-                        <button onClick={handlePrevPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-                        {
-                            pages?.map(page => (
-                                <button
-                                    onClick={() => setCurrentPage(page)}
-                                    key={page}
-                                    className={`${currentPage === page ? 'selected' : null} px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>
-                                    {page}
-                                </button>
-                            ))
-                        }
-                        <button onClick={handleNextPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-                    </div> */}
+
                 </table>
+                <div className="flex justify-center items-center pb-5">
+                    <button onClick={handlePrevPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                    </button>
+                    {
+                        pages?.map(page => (
+                            <button
+                                onClick={() => setCurrentPage(page)}
+                                key={page}
+                                className={`${currentPage === page ? 'selected' : null} px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>
+                                {page}
+                            </button>
+                        ))
+                    }
+                    <button onClick={handleNextPage} className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     );

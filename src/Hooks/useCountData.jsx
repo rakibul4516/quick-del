@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosPublic from "../Axios/useAxiosPublic";
 
 const useCountData = () => {
     const axiosPublic = useAxiosPublic()
     const [count, setCount] = useState('')
     const [parcels,setParcels] = useState([])
-    axiosPublic.get('/countusers')
-        .then(res => {
+    useEffect(()=>{    
+        axiosPublic.get('/countusers')
+            .then(res => {
+                if (!count) {
+                    console.log(res.data)
+                    setCount(res.data)
+                }
+            })
+    },[axiosPublic,count])
+    useEffect(()=>{
+        axiosPublic.get('/parcels')
+        .then(res=>{
             if (!count) {
-                setCount(res.data)
+                setParcels(res.data)
             }
         })
-    
-    axiosPublic.get('/parcels')
-    .then(res=>{
-        if (!count) {
-            setParcels(res.data)
-        }
-    })
+    },[axiosPublic,count])
     return {count,parcels};
 };
 
