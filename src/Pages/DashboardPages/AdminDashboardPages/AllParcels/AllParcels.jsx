@@ -2,6 +2,7 @@ import useAllParcels from "../../../../Hooks/useAllParcels";
 import { useState } from "react";
 import ManageParcel from "./ManageParcel";
 import useAxiosPublic from "../../../../Axios/useAxiosPublic";
+import { toast } from "react-toastify";
 
 const AllParcels = () => {
     const { data,refetch } = useAllParcels()
@@ -30,7 +31,7 @@ const AllParcels = () => {
         axiosPublic.put(`/parcels/${_id}`, updateData)
         .then(res => {
             if (res.data.modifiedCount == 1) {
-                console.log('Assigned Successfully',res.data)
+                toast('Assigned Successfully')
                 refetch()
             }
         })

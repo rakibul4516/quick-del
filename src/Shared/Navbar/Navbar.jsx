@@ -4,13 +4,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import useAuth from '../../Hooks/useAuth';
 import { Link } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-const pages = ['Home', 'DashBoard', 'Login'];
+import useUsers from '../../Hooks/useUsers';
+
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const { users, signoutUser } = useAuth()
-    console.log(users)
+    const { data } = useUsers()
+    console.log(data)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -34,11 +36,35 @@ function Navbar() {
                 console.log(res)
             })
     }
+
+
+
+    // dashboard routes
+    const routesByRole = {
+        user: '/dashboard/parcelbooking',
+        admin: '/dashboard/statistics',
+        deliverymen: '/dashboard/mydeliverylist',
+    };
+
+    const userRoutes = data ? data?.map(user => {
+        const role = user?.role;
+        const route = routesByRole[role];
+
+        return (
+            <Link key={user?._id} to={route}>
+                <h2 className=''>Dashboard</h2>
+            </Link>
+        );
+    }) : <Link to='dashboard'>
+        <h2 className=''>Dashboard</h2>
+    </Link>;
+
+
     return (
         <AppBar sx={{ maxWidth: 1240, backgroundColor: "#e9ece3" }} position="static">
             <Container >
                 <Toolbar disableGutters>
-                    {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+                    <img src="https://i.ibb.co/BNKXvSk/image-removebg-preview-7.png" alt="logo" />
                     <Typography
                         variant="h6"
                         noWrap
@@ -86,11 +112,16 @@ function Navbar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: 2, }} onClick={handleCloseNavMenu}>
+                                <Link to='/'>
+                                    <Typography textAlign="center">Home</Typography>
+                                </Link>
+
+                                {userRoutes}
+                                <Link to='/'>
+                                    <Typography textAlign="center">Contact</Typography>
+                                </Link>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Typography
@@ -112,15 +143,17 @@ function Navbar() {
                         QuickDel
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'end', justifyItems: 'center', marginRight: "20px" } }}>
+                        <Link to='/'>
+                            <Button
+                                sx={{ my: 2, color: 'black', display: 'block' }}
+                            >
+                                Home
+                            </Button>
+                        </Link>
                         <Button
                             sx={{ my: 2, color: 'black', display: 'block' }}
                         >
-                            Home
-                        </Button>
-                        <Button
-                            sx={{ my: 2, color: 'black', display: 'block' }}
-                        >
-                            DashBoard
+                            {userRoutes}
                         </Button>
                         <Button
                             sx={{ my: 2, color: 'black', display: 'block' }}
@@ -138,7 +171,7 @@ function Navbar() {
                         users ? <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src={users?.photoURL} />
+                                    <Avatar alt="Profile image" src={users?.photoURL} />
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -157,11 +190,9 @@ function Navbar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                <MenuItem sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: 1 }} onClick={handleCloseUserMenu}>
+                                <MenuItem sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: 2, }} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{users.displayName}</Typography>
-                                    <Link to='/dashboard'>
-                                        <Typography textAlign="center" >DashBoard</Typography>
-                                    </Link>
+                                    {userRoutes}
                                     <Typography onClick={handleLogout} textAlign="center">Logout</Typography>
                                 </MenuItem>
                             </Menu>

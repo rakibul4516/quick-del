@@ -31,8 +31,6 @@ export default function SignUp() {
     const navigate = useNavigate()
     const [userType, setUserType] = useState('user');
 
-    console.log(userType)
-
     const IMGBB_KEY = import.meta.env.VITE_IMGBB_KEY
     const handleRegister = (data) => {
         const userName = data.firstName + ' ' + data.lastName
@@ -40,7 +38,7 @@ export default function SignUp() {
         const role = userType
         const number = data.number;
         console.log(userName)
-
+        const totalDeliver = 0
         //Image Upload to imgbb server
         const imageFile = data.image[0];
         const formData = new FormData();
@@ -51,7 +49,7 @@ export default function SignUp() {
                 console.log(response.data.data.url)
 
                 const image = response.data.data.url
-                const userData = { image, userName, email, role, number }
+                const userData = { image, userName, email, role, number,totalDeliver }
                 //Sign Up users
                 signupUser(data.email, data.password)
                     .then(res => {
@@ -65,9 +63,6 @@ export default function SignUp() {
                                       });
                                     navigate(location?.state ? location.state : '/');
                                 })
-                                .catch(err => {
-                                    console.log(err)
-                                })
                             axiosPublic.post('/users', userData)
                                 .then(res => {
                                     if (res?.data?.insertedId) {
@@ -76,11 +71,7 @@ export default function SignUp() {
                                 })
                         }
                     })
-                    .catch(err => console.log(err))
             })
-            .catch(error => {
-                console.log(error)
-            });
 
     };
 

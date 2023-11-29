@@ -5,7 +5,6 @@ import { useState } from 'react';
 const Statistics = () => {
     const filterDataByDate = useParcelsByDate()
     const [dates, setDates] = useState()
-    console.log(filterDataByDate)
     if (filterDataByDate && typeof filterDataByDate === 'object') {
         const bookingDates = Object.keys(filterDataByDate);
         if (!dates) {
@@ -57,7 +56,7 @@ const Statistics = () => {
     };
 
     return (
-        <div id="chart" className='w-8/12 mx-auto py-14'>
+        <div id="chart" className='lg:w-8/12  mx-auto py-14'>
             <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={350} />
         </div>
     );

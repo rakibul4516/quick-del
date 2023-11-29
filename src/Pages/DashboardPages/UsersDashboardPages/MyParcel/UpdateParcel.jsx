@@ -38,7 +38,7 @@ const UpdateParcel = () => {
                 .then(() => {
                     Swal.fire({
                         icon: "success",
-                        title: "Sign Up Successfully",
+                        title: "Update Successfully",
                     });
                 })
         }

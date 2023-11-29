@@ -16,6 +16,10 @@ import MyReviews from "../../Pages/DashboardPages/DeliverymenDeshboardPages/MyRe
 import UpdateParcel from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/UpdateParcel";
 import Payment from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/Payment/Payment";
 import Statistics from '../../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics'
+// import PaymentSuccess from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/Payment/PaymentSuccess";
+
+
+
 const Routes = createBrowserRouter([
     {
         path:'/',
@@ -36,6 +40,7 @@ const Routes = createBrowserRouter([
         ]
     },
     {
+
         path:'/dashboard',
         element: <PrivateRoute><Deshboard/></PrivateRoute>,
         children:[
@@ -50,13 +55,17 @@ const Routes = createBrowserRouter([
             {
                 path:'updateparcel/:id',
                 element: <PrivateRoute><UpdateParcel/></PrivateRoute>,
-                loader:({params}) =>fetch(`http://localhost:5000/api/v1/parcels/${params.id}`)
+                loader:({params}) =>fetch(`https://quick-del-server.vercel.app/api/v1/parcels/${params.id}`)
             },
             {
                 path:'payment/:id',
                 element: <PrivateRoute><Payment/></PrivateRoute>,
-                loader:({params}) =>fetch(`http://localhost:5000/api/v1/parcels/${params.id}`)
+                loader:({params}) =>fetch(`https://quick-del-server.vercel.app/api/v1/parcels/${params.id}`)
             },
+            // {
+            //     path:'/',
+            //     element: <PrivateRoute><PaymentSuccess/></PrivateRoute>,
+            // },
             {
                 path:'myprofile',
                 element: <PrivateRoute><MyProfile/></PrivateRoute>
@@ -64,7 +73,7 @@ const Routes = createBrowserRouter([
             {
                 path:'allusers',
                 element: <PrivateRoute><AllUsers/></PrivateRoute>,
-                // loader: () =>fetch('http://localhost:5000/api/v1/countusers')
+                // loader: () =>fetch('https://quick-del-server.vercel.app/api/v1/countusers')
             },
             {
                 path:'allparcels',

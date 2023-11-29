@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const { signinUser,signinWithGoogle } = useAuth()
+  const { signinUser, signinWithGoogle } = useAuth()
   const { register, handleSubmit } = useForm()
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
@@ -38,6 +38,7 @@ export default function SignIn() {
             icon: "success",
             title: "Sign In Successfully",
           });
+          console.log(location.state)
           navigate(location?.state ? location.state : '/');
         }
       })
@@ -48,27 +49,23 @@ export default function SignIn() {
 
   //Handle google login
   const handleGoogleLogin = () => {
-    console.log('hello world')
     signinWithGoogle()
       .then(res => {
-        if(res?.user?.email){
+        if (res?.user?.email) {
           const userName = res?.user?.displayName;
           const image = res?.user?.photoURL;
           const email = res?.user?.email;
           const role = 'user'
-          const userData = {image,userName,email,role}
-          axiosPublic.post('/users',userData)
-          .then(()=>{
-            Swal.fire({
-              icon: "success",
-              title: "Sign Up Successfully",
-            });
-            navigate(location?.state ? location.state : '/');
-          })
+          const userData = { image, userName, email, role }
+          axiosPublic.post('/users', userData)
+            .then(() => {
+              Swal.fire({
+                icon: "success",
+                title: "Sign Up Successfully",
+              });
+              navigate(location?.state ? location.state : '/');
+            })
         }
-      })
-      .catch(err => {
-        console.log(err)
       })
   }
 
@@ -80,7 +77,7 @@ export default function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            marginBottom:8,
+            marginBottom: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -132,8 +129,9 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
+                Do not have an account?
                 <Link to="/register" variant="body2">
-                  Don't have an account? Sign Up
+                  Sign Up
                 </Link>
               </Grid>
             </Grid>

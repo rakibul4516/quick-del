@@ -9,7 +9,7 @@ const Deshboard = () => {
                 <div className="col-span-1">
                     <DashboardView/>
                 </div>
-                <div className="lg:col-span-4 col-span-3">
+                <div className="lg:col-span-4 col-span-3 ">
                     <Outlet/>
                 </div>
             </div>

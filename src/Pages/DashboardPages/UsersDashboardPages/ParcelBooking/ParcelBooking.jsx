@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../../Hooks/useAuth';
 import useAxiosPublic from '../../../../Axios/useAxiosPublic';
+import Swal from 'sweetalert2';
 const ParcelBooking = () => {
     const axiosPublic = useAxiosPublic()
     const { users } = useAuth()
@@ -50,7 +51,12 @@ const ParcelBooking = () => {
         console.log(parcelData)
         axiosPublic.post('/parcels', parcelData)
             .then(res => {
-                console.log(res.data)
+                if(res.data.insertedId){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfully Added Parcel",
+                    });
+                }
             }).catch(err => {
                 console.log(err)
             })

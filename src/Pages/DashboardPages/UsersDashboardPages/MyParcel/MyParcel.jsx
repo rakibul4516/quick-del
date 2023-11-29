@@ -6,7 +6,6 @@ import useAxiosPublic from "../../../../Axios/useAxiosPublic";
 import { useEffect, useState } from "react";
 import ReviewForm from "./ReviewForm";
 import useAuth from "../../../../Hooks/useAuth";
-import Cheakout from "./Payment/Cheakout";
 
 const MyParcel = () => {
   const {users} = useAuth()

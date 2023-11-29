@@ -3,17 +3,14 @@ import { useState } from "react";
 import useAxiosPublic from "../../../../Axios/useAxiosPublic";
 import useDeliveryData from "../../../../Hooks/useDeliveryData";
 import DeliverLocation from "./DeliverLocation";
-import useUsers from "../../../../Hooks/useUsers";
 import { toast } from "react-toastify";
 
 
 const MyDeliveryList = () => {
-    const { refetch } = useUsers()
     const [isOpen, setIsOpen] = useState(false);
     const axiosPublic = useAxiosPublic()
     const { parcels, totalDelivery, id } = useDeliveryData()
-    const parcelData = parcels?.filter((item) =>item?.status =='On The Way')
-    //allparcels = {deliveryAddress,deliveryDate,email,latitude,longitude,parcelType,parcelWeight,phoneNumber,price,receiverName,receiverNumber,senderName,_id}
+    const parcelData = parcels?.filter((item) => item?.status == 'On The Way')
     //model toggle bar
     const toggleModal = () => {
         setIsOpen(!isOpen);
@@ -37,7 +34,6 @@ const MyDeliveryList = () => {
                     if (res?.data?.modifiedCount === 1) {
                         axiosPublic.patch(`/users/${id}`, { totalDeliver: totalDeliver })
                             .then(() => {
-                                refetch();
                                 return toast("Delivered Succesfully!")
                             })
                     }
@@ -61,7 +57,7 @@ const MyDeliveryList = () => {
                 .then(res => {
                     console.log(res.data);
                     if (res?.data?.modifiedCount === 1) {
-                                return toast("Canceled Succesfully!")
+                        return toast("Canceled Succesfully!")
                     }
                 })
         }
