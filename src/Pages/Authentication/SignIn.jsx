@@ -9,25 +9,23 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
-import { Link } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import useAxiosPublic from '../../Axios/useAxiosPublic';
 import Swal from 'sweetalert2';
+import Lottie from 'lottie-react';
+import regiserpage from '../../../public/registerpage.json'
+import { Link, useLocation } from 'react-router-dom';
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
 
 export default function SignIn() {
   const { signinUser, signinWithGoogle } = useAuth()
   const { register, handleSubmit } = useForm()
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
-
+  const location = useLocation();
   const handleRegister = (data) => {
     console.log(data)
     signinUser(data.email, data.password)
@@ -71,73 +69,79 @@ export default function SignIn() {
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            marginBottom: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              {...register('email')}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              {...register('password')}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Button variant="outlined" onClick={handleGoogleLogin} startIcon={<GoogleIcon />}>
-              Google
-            </Button>
-            <Grid container>
-              <Grid item>
-                Do not have an account?
-                <Link to="/register" variant="body2">
-                  Sign Up
-                </Link>
+    <Grid justifyContent="center" alignItems="center" sx={{ backgroundColor: '#fffcf7' }} container>
+      {/* <Grid item xs={12} md={6}>
+        <Container className="w-full mx-auto">
+          <Lottie className="h-[100vh] w-full mx-auto" animationData={regiserpage} loop={true} />
+        </Container>
+      </Grid> */}
+      <Grid item xs={12} md={6}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              marginBottom: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                {...register('email')}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                {...register('password')}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Button variant="outlined" onClick={handleGoogleLogin} startIcon={<GoogleIcon />}>
+                Google
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link to="/register" variant="body2">
+                    Don't have an account? Sign Up
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </Grid>
+    </Grid>
   );
 }

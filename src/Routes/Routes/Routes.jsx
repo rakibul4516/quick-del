@@ -16,6 +16,7 @@ import MyReviews from "../../Pages/DashboardPages/DeliverymenDeshboardPages/MyRe
 import UpdateParcel from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/UpdateParcel";
 import Payment from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/Payment/Payment";
 import Statistics from '../../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics'
+import ErrorPage from "../../Components/ErrorPage/ErrorPage";
 // import PaymentSuccess from "../../Pages/DashboardPages/UsersDashboardPages/MyParcel/Payment/PaymentSuccess";
 
 
@@ -24,6 +25,7 @@ const Routes = createBrowserRouter([
     {
         path:'/',
         element: <Main/>,
+        errorElement:<ErrorPage/>,
         children:[
             {
                 path:'/',
