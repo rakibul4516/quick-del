@@ -1,7 +1,9 @@
 import Banner from "../Banner/Banner";
 import Features from "../Features/Features";
+import Gallary from "../Gallary/Gallary";
 import OurStatistics from "../OurStatistics/OurStatistics";
 import TopSeller from "../TopSeller/TopSeller";
+import WhyUs from "../WhyUs/WhyUs";
 
 const Home = () => {
     return (
@@ -11,6 +13,8 @@ const Home = () => {
                 <Features/>
                 <OurStatistics/>
                 <TopSeller/>
+                <WhyUs/>
+                <Gallary/>
             </div>
         </div>
     );

@@ -1,10 +1,8 @@
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form';
@@ -63,7 +61,7 @@ const ParcelBooking = () => {
 
     }
     return (
-        <Container component="main" maxWidth="lg">
+        <Container component="main"  maxWidth="lg">
             <CssBaseline />
             <Box
                 sx={{
@@ -73,13 +71,10 @@ const ParcelBooking = () => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Booking
+                <Typography component="h1" variant="h4">
+                Parcel Booking
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit(handleBookingForm)} sx={{ mt: 3 }}>
+                <Box component="form" noValidate onSubmit={handleSubmit(handleBookingForm)} sx={{ margin: 3,padding:'30px',borderRadius:'10px' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField

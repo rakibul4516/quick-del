@@ -10,8 +10,8 @@ const OurStatistics = () => {
     const totalDelivered = Delivered?.length
     
     return (
-        <section className="p-4 my-10 md:p-8 w-10/12  mx-auto dark:bg-gray-800 dark:text-gray-100">
-            <div className="container grid grid-cols-1 gap-6 m-4 mx-auto md:m-0 md:grid-cols-2 xl:grid-cols-3">
+        <section className="p-4 my-10 md:p-8 lg:w-10/12 w-11/12 mx-auto dark:bg-gray-800 dark:text-gray-100">
+            <div className="container grid grid-cols-1 gap-6 m-4 mx-auto md:m-0 md:grid-cols-2 lg:grid-cols-3">
                 <div className="flex overflow-hidden bg-[#fffcf7] shadow-xl rounded-lg dark:bg-gray-900 dark:text-gray-100">
                     <div className="flex items-center justify-center rounded-r-lg bg-[#d4a373] px-4 dark:bg-violet-400 dark:text-gray-800">
                         <MdBookmarkAdded className="text-4xl font-semibold "/>

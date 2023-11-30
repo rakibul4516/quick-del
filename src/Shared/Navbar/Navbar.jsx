@@ -64,12 +64,11 @@ function Navbar() {
         <AppBar sx={{ maxWidth: 1240, backgroundColor: "#e9ece3" }} position="static">
             <Container >
                 <Toolbar disableGutters>
-                    <img src="https://i.ibb.co/BNKXvSk/image-removebg-preview-7.png" alt="logo" />
+                    <img src="https://i.ibb.co/BNKXvSk/image-removebg-preview-7.png" alt="logo" className='h-20 w-20 p-3 max-lg:hidden ' />
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -124,11 +123,11 @@ function Navbar() {
                             </MenuItem>
                         </Menu>
                     </Box>
+                    <img src="https://i.ibb.co/BNKXvSk/image-removebg-preview-7.png" alt="logo" className='h-20 w-20 p-3 lg:hidden' />
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
-                        href="app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },

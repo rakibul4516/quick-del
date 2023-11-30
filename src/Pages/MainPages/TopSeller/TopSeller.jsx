@@ -2,7 +2,7 @@
 const TopSeller = () => {
     return (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 w-10/12 mx-auto">
-            <div className="flex flex-col justify-center max-w-xs p-4 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex flex-col bg-[#fffcf7] justify-center max-w-xs p-4 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
                 <img src="https://source.unsplash.com/150x150/?portrait?3" alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
                 <div className="space-y-4 text-center divide-y dark:divide-gray-700">
                     <div className="my-2 space-y-1">
@@ -33,7 +33,7 @@ const TopSeller = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex flex-col bg-[#fffcf7] justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
                 <img src="https://source.unsplash.com/150x150/?portrait?3" alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
                 <div className="space-y-4 text-center divide-y dark:divide-gray-700">
                     <div className="my-2 space-y-1">
@@ -64,7 +64,7 @@ const TopSeller = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex flex-col bg-[#fffcf7] justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100">
                 <img src="https://source.unsplash.com/150x150/?portrait?3" alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
                 <div className="space-y-4 text-center divide-y dark:divide-gray-700">
                     <div className="my-2 space-y-1">
