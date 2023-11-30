@@ -77,11 +77,11 @@ export default function SignUp() {
     return (
 
         <Grid justifyContent="center" alignItems="center" sx={{ backgroundColor: '#fffcf7' }} container>
-            {/* <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
                 <div className="w-full h-full mx-auto">
                     <Lottie className=" w-full mx-auto" animationData={regiserpage} loop={true} />
                 </div>
-            </Grid> */}
+            </Grid>
             <Grid item xs={12} md={6}>
                 <Container component="main" maxWidth="xs" >
                     <Container component="main" maxWidth="xs" color="">

@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../../Axios/useAxiosPublic";
-// import useAllusers from "../../../../Hooks/useAllusers";
 import { toast } from "react-toastify";
-import useCountData from "../../../../Hooks/useCountData";
-// import { useLoaderData } from "react-router-dom";
+import useAllusers from "../../../../Hooks/useAllusers";
 
 const AllUsers = () => {
-    const [users, setusers] = useState([])
+    const [users, setusers] = useState()
     const axiosPublic = useAxiosPublic()
     const [currentPage, setCurrentPage] = useState(1)
-    // const { count } = useLoaderData()
-    const { count } = useCountData()
-    console.log(count)
+    const usersdata = useAllusers('user')
 
 
     const handleMakeDeliverymen = (id) => {
@@ -48,8 +44,7 @@ const AllUsers = () => {
 
 
     // //Use pagination 
-    console.log(typeof (count?.count))
-    const countData = count?.count
+    const countData = usersdata?.data?.length
     const limit = 5;
     const totalPages = countData ? Math.ceil(parseInt(countData) / limit) : ''
     const pages = [...Array(totalPages).keys()];
@@ -73,9 +68,8 @@ const AllUsers = () => {
     // //Fetch data 
     useEffect(() => {
         // axiosPublic.get(`/allfoods?search=${search}&category=${category}&page=${currentPage}&limit=${limit}`)
-        axiosPublic.get(`/allusers?role='user'&page=${currentPage}&limit=${limit}`)
+        axiosPublic.get(`/allusers?role=user&page=${currentPage}&limit=${limit}`)
             .then((res) => {
-                console.log(res.data)
                 setusers(res.data);
             })
     }, [currentPage, axiosPublic])
@@ -98,8 +92,8 @@ const AllUsers = () => {
                         <tr className="text-left">
                             <th className="p-3">User Name</th>
                             <th className="p-3">Phone Number</th>
+                            <th className="p-3">Email</th>
                             <th className="p-3">Total Booked</th>
-                            <th className="p-3">Total Amount</th>
                             <th className="p-3">Make Delivery Men</th>
                             <th className="p-3">Make Admin </th>
                         </tr>
@@ -120,9 +114,7 @@ const AllUsers = () => {
                                     </td>
                                     <td className="p-3">
                                         <span className=" py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
-
-                                            <span></span>
-
+                                            <span>{user?.email}</span>
                                         </span>
                                     </td>
                                     <td className="p-3">
