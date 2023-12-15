@@ -16,8 +16,8 @@ import axios from 'axios';
 import useAxiosPublic from '../../Axios/useAxiosPublic';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import Lottie from 'lottie-react';
-import regiserpage from '../../../public/registerpage.json'
+// import Lottie from 'lottie-react';
+// import regiserpage from '../../../public/registerpage.json'
 import { Link, useLocation } from 'react-router-dom';
 
 
@@ -77,11 +77,11 @@ export default function SignUp() {
     return (
 
         <Grid justifyContent="center" alignItems="center" sx={{ backgroundColor: '#fffcf7' }} container>
-            <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
                 <div className="w-full h-full mx-auto">
                     <Lottie className=" w-full mx-auto" animationData={regiserpage} loop={true} />
                 </div>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={6}>
                 <Container component="main" maxWidth="xs" >
                     <Container component="main" maxWidth="xs" color="">
@@ -133,7 +133,7 @@ export default function SignUp() {
                                         <Select
                                             value={userType}
                                             onChange={(e) => setUserType(e.target.value)}
-                                            sx={{ width: 400 }}
+                                            sx={{ md:{width: 400}, width:370 }}
                                             labelId="label"
                                         >
                                             <MenuItem value="user">Normal User</MenuItem>

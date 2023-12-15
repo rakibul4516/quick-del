@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { MdOutgoingMail } from "react-icons/md";
-
+import Aos from "aos";
+import 'aos/dist/aos.css'
 const Footer = () => {
+    useEffect(() => {
+        Aos.init({ duration: 2000 })
+    }, [])
     return (
-        <footer className="bg-[#e9ece3] dark:bg-gray-800 dark:text-gray-50">
+        <footer data-aos="fade-left" className="bg-[#e9ece3] dark:bg-gray-800 dark:text-gray-50">
             <div className="container flex flex-col p-4 mx-auto md:p-8 lg:flex-row dark:divide-gray-400">
                 <ul className="self-center py-6 space-y-4 text-center sm:flex sm:space-y-0 sm:justify-around sm:space-x-4 lg:flex-1 lg:justify-start">
                     <li>Shop</li>

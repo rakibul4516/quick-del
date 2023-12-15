@@ -15,8 +15,8 @@ import useAuth from '../../Hooks/useAuth';
 import GoogleIcon from '@mui/icons-material/Google';
 import useAxiosPublic from '../../Axios/useAxiosPublic';
 import Swal from 'sweetalert2';
-import Lottie from 'lottie-react';
-import regiserpage from '../../../public/registerpage.json'
+// import Lottie from 'lottie-react';
+// import regiserpage from '../../../public/registerpage.json'
 import { Link, useLocation } from 'react-router-dom';
 
 
@@ -70,11 +70,11 @@ export default function SignIn() {
 
   return (
     <Grid justifyContent="center" alignItems="center" sx={{ backgroundColor: '#fffcf7' }} container>
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <Container className="w-full mx-auto">
           <Lottie className="h-[100vh] w-full mx-auto" animationData={regiserpage} loop={true} />
         </Container>
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} md={6}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

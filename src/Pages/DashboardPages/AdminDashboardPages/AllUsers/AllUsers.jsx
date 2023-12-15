@@ -6,7 +6,7 @@ import useAllusers from "../../../../Hooks/useAllusers";
 const AllUsers = () => {
     const [users, setusers] = useState()
     const axiosPublic = useAxiosPublic()
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(0)
     const usersdata = useAllusers('user')
 
 
